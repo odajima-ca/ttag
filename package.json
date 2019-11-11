@@ -8,17 +8,17 @@
   "private": true,
   "scripts": {
     "fix-lint": "npm-run-all --print-label --parallel fix-lint:*",
-    "fix-lint:atag": "yarn --cwd packages/atag fix-lint",
-    "fix-lint:ptag": "yarn --cwd packages/ptag fix-lint",
+    "fix-lint:ad": "yarn --cwd packages/ad fix-lint",
+    "fix-lint:media": "yarn --cwd packages/media fix-lint",
     "lint": "npm-run-all --print-label --parallel lint:*",
-    "lint:atag": "yarn --cwd packages/atag lint",
-    "lint:ptag": "yarn --cwd packages/ptag lint",
+    "lint:ad": "yarn --cwd packages/ad lint",
+    "lint:media": "yarn --cwd packages/media lint",
     "start": "npm-run-all --print-label --parallel start:*",
-    "start:atag": "yarn --cwd packages/atag start",
-    "start:ptag": "yarn --cwd packages/ptag start",
+    "start:ad": "yarn --cwd packages/ad start",
+    "start:media": "yarn --cwd packages/media start",
     "postinstall": "npm-run-all --print-label --parallel install:*",
-    "install:atag": "yarn --cwd packages/atag install",
-    "install:ptag": "yarn --cwd packages/ptag install"
+    "install:ad": "yarn --cwd packages/ad install",
+    "install:media": "yarn --cwd packages/media install"
   },
   "devDependencies": {
     "create-react-app": "^3.2.0",
