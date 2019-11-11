@@ -1,0 +1,20 @@
+{
+  "name": "ttag",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/odajima-ca/ttag.git",
+  "author": "odajima-ca <odajima_yu_gn@cyberagent.co.jp>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "yarn workspaces run lint",
+    "lint-fix": "yarn workspaces run lint-fix"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "create-react-app": "^3.2.0",
+    "netlify-cli": "^2.20.0"
+  }
+}
