@@ -7,14 +7,22 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "lint": "yarn workspaces run lint",
-    "lint-fix": "yarn workspaces run lint-fix"
+    "fix-lint": "npm-run-all --print-label --parallel fix-lint:*",
+    "fix-lint:atag": "yarn workspace atag fix-lint",
+    "fix-lint:ptag": "yarn workspace ptag fix-lint",
+    "lint": "npm-run-all --print-label --parallel lint:*",
+    "lint:atag": "yarn workspace atag lint",
+    "lint:ptag": "yarn workspace ptag lint",
+    "start": "npm-run-all --print-label --parallel start:*",
+    "start:atag": "yarn workspace atag start",
+    "start:ptag": "yarn workspace ptag start"
   },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
     "create-react-app": "^3.2.0",
-    "netlify-cli": "^2.20.0"
+    "netlify-cli": "^2.20.0",
+    "npm-run-all": "^4"
   }
 }

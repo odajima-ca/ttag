@@ -16,8 +16,8 @@
   },
   "scripts": {
     "build": "react-scripts build",
+    "fix-lint": "yarn lint --fix",
     "lint": "eslint . --ignore-path .gitignore --ext .js,.jsx,.ts,.tsx",
-    "lint-fix": "yarn lint --fix",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
