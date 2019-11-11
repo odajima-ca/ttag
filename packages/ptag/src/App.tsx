@@ -7,23 +7,23 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         <Flex flexDirection="row" flexWrap="wrap">
-          <Box p={1} width={[1, 1 / 2, 1 / 3, 1 / 4]} height={256}>
+          <Box m={1} width="336px" height="280px">
             <Card bg="gray" height="100%" />
           </Box>
-          <Box p={1} width={[1, 1 / 2, 1 / 3, 1 / 4]} height={256}>
+          <Box m={1} width="336px" height="280px">
             <Card bg="gray" height="100%" />
           </Box>
-          <Box p={1} width={[1, 1 / 2, 1 / 3, 1 / 4]} height={256}>
+          <Box m={1} width="336px" height="280px">
             <Card bg="gray" height="100%" />
           </Box>
-          <Box p={1} width={[1, 1 / 2, 1 / 3, 1 / 4]} height={256}>
+          <Box m={1} width="336px" height="280px">
             <Card bg="gray" height="100%" />
           </Box>
-          <Box p={1} width={[1, 1/2, 1/3, 1/4]} height={256}>
+          <Box m={1} width="336px" height="280px">
             <Iframe
               url={process.env.REACT_APP_ATAG_HOST}
-              width="100%"
-              height="100%"
+              width="336px"
+              height="280px"
               id="myId"
               className="myClassname"
               display="inline"
@@ -32,16 +32,16 @@ const App: React.FC = () => {
               styles={{ boxSizing: "border-box" }}
             />
           </Box>
-          <Box p={1} width={[1, 1 / 2, 1 / 3, 1 / 4]} height={256}>
+          <Box m={1} width="336px" height="280px">
             <Card bg="gray" height="100%" />
           </Box>
-          <Box p={1} width={[1, 1 / 2, 1 / 3, 1 / 4]} height={256}>
+          <Box m={1} width="336px" height="280px">
             <Card bg="gray" height="100%" />
           </Box>
-          <Box p={1} width={[1, 1 / 2, 1 / 3, 1 / 4]} height={256}>
+          <Box m={1} width="336px" height="280px">
             <Card bg="gray" height="100%" />
           </Box>
-          <Box p={1} width={[1, 1 / 2, 1 / 3, 1 / 4]} height={256}>
+          <Box m={1} width="336px" height="280px">
             <Card bg="gray" height="100%" />
           </Box>
         </Flex>
