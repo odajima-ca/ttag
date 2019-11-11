@@ -8,18 +8,18 @@
   "private": true,
   "scripts": {
     "fix-lint": "npm-run-all --print-label --parallel fix-lint:*",
-    "fix-lint:atag": "yarn workspace atag fix-lint",
-    "fix-lint:ptag": "yarn workspace ptag fix-lint",
+    "fix-lint:atag": "cd packages/atag && yarn fix-lint",
+    "fix-lint:ptag": "cd packages/ptag && yarn fix-lint",
     "lint": "npm-run-all --print-label --parallel lint:*",
-    "lint:atag": "yarn workspace atag lint",
-    "lint:ptag": "yarn workspace ptag lint",
+    "lint:atag": "cd packages/atag && yarn lint",
+    "lint:ptag": "cd packages/ptag && yarn lint",
     "start": "npm-run-all --print-label --parallel start:*",
-    "start:atag": "yarn workspace atag start",
-    "start:ptag": "yarn workspace ptag start"
+    "start:atag": "cd packages/atag && yarn start",
+    "start:ptag": "cd packages/ptag && yarn start",
+    "postinstall": "npm-run-all --print-label --parallel install:*",
+    "install:atag": "cd packages/atag && yarn install",
+    "install:ptag": "cd packages/ptag && yarn install"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "devDependencies": {
     "create-react-app": "^3.2.0",
     "netlify-cli": "^2.20.0",
