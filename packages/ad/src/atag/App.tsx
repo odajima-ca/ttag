@@ -79,7 +79,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <Box width="336px" height="280px">
+    <Box width={400} height={360}>
       <Flex flexDirection="column" flexWrap="nowrap" height="100%">
         <Flex
           alignItems="center"

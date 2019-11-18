@@ -1,6 +1,6 @@
 import React from "react";
 import FrameComponent from "react-frame-component";
-import { Box, Card, Flex } from "rebass";
+import { Box, Button, Flex, Text } from "rebass";
 
 const App: React.FC = () => {
   const initialContent = `
@@ -25,45 +25,97 @@ const App: React.FC = () => {
   `;
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <Flex flexDirection="row" flexWrap="wrap">
-          <Box m={1} width="336px" height="280px">
-            <Card bg="gray" height="100%" />
+    <Flex flexDirection="column" flexWrap="nowrap">
+      <Box as="header" bg="lightgray">
+        <Button as="a" href="/" fontSize={[3, 4, 5]} color="white" p={3} pl={4}>
+          DEMO
+        </Button>
+        <Flex flexWrap="nowrap">
+          {[1, 2, 3, 4].map(num => (
+            <Button as="a" href="/" p={3}>
+              MENU {num}
+            </Button>
+          ))}
+        </Flex>
+      </Box>
+
+      <Box bg="lightblue" height={[250, 300]} />
+
+      <Box
+        as="main"
+        width={[1, 9 / 10, 8 / 10, 7 / 10]}
+        maxWidth={["100%", 980]}
+        mx="auto"
+        my={3}
+      >
+        <Box p={5} bg="lightgray" mb={3} />
+
+        <Flex flexWrap="wrap">
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
           </Box>
-          <Box m={1} width="336px" height="280px">
-            <Card bg="gray" height="100%" />
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
           </Box>
-          <Box m={1} width="336px" height="280px">
-            <Card bg="gray" height="100%" />
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
           </Box>
-          <Box m={1} width="336px" height="280px">
-            <Card bg="gray" height="100%" />
-          </Box>
-          <Box m={1} width="336px" height="280px" id="ad-frame-container">
+          <Box width={[1, 1 / 2]} px={2} py={2} id="ad-frame-container-1">
             <FrameComponent
               children={null}
               frameBorder={0}
               initialContent={initialContent}
               scrolling="no"
-              style={{ width: 336, height: 280 }}
+              style={{ width: 400, height: 360 }}
             />
           </Box>
-          <Box m={1} width="336px" height="280px">
-            <Card bg="gray" height="100%" />
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
           </Box>
-          <Box m={1} width="336px" height="280px">
-            <Card bg="gray" height="100%" />
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
           </Box>
-          <Box m={1} width="336px" height="280px">
-            <Card bg="gray" height="100%" />
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
           </Box>
-          <Box m={1} width="336px" height="280px">
-            <Card bg="gray" height="100%" />
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
+          </Box>
+          <Box width={[1, 1 / 2]} px={2} py={2} id="ad-frame-container-2">
+            <FrameComponent
+              children={null}
+              frameBorder={0}
+              initialContent={initialContent}
+              scrolling="no"
+              style={{ width: 400, height: 360 }}
+            />
+          </Box>
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
+          </Box>
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
+          </Box>
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
+          </Box>
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
+          </Box>
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
+          </Box>
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
+          </Box>
+          <Box width={[1, 1 / 2]} px={2} py={2}>
+            <Box bg="lightgray" width="100%" height={360} />
           </Box>
         </Flex>
-      </header>
-    </div>
+      </Box>
+
+      <Box bg="lightgray" height={[250, 300]} mt={5} />
+    </Flex>
   );
 };
 
