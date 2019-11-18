@@ -1,31 +1,44 @@
 import React from "react";
 import { Box, Button, Flex } from "rebass/styled-components";
 
-const setupPostMessage = () => {
+const setupPostMessage = (props: Props) => {
+  const { mediaId, placementId } = props;
+
   const message = {
-    ptag: {
-      type: "handshake"
+    ebis: {
+      type: "handshake",
+      mediaId,
+      placementId
     }
   };
-  console.log("Child send message", message.ptag.type, message);
+  console.log(`[${placementId}]`, "Child send message", "[handshake]", message);
   window.top.postMessage(message, "*");
 };
 
-const App: React.FC = () => {
+interface Props {
+  placementId: string;
+  mediaId: string;
+}
+
+const App: React.FC<Props> = ({ placementId, mediaId }) => {
   const [status, setStatus] = React.useState("initialized");
   const [adWindow, setAdWindow] = React.useState();
   const [adOrigin, setAdOrigin] = React.useState();
 
   React.useEffect(() => {
     window.addEventListener("message", (event: MessageEvent) => {
-      const atag = event.data && event.data.atag;
+      const ebisData = event.data && event.data.ebis;
 
       let newAdOrigin;
       let newAdWindow;
       let newStatus;
 
-      if (atag) {
-        switch (atag.type) {
+      if (
+        ebisData &&
+        ebisData.mediaId === mediaId &&
+        ebisData.placementId === placementId
+      ) {
+        switch (ebisData.type) {
           case "connected":
             newAdOrigin = event.origin;
             newAdWindow = event.source as WindowProxy;
@@ -49,11 +62,17 @@ const App: React.FC = () => {
             break;
         }
 
-        console.log("Child receive message", newStatus, {
-          origin: newAdOrigin || adOrigin,
-          status: newStatus || status,
-          window: newAdWindow || adWindow
-        });
+        console.log(
+          `[${placementId}]`,
+          "Child receive message",
+          `[${ebisData.type}]`,
+          newStatus,
+          {
+            origin: newAdOrigin || adOrigin,
+            status: newStatus || status,
+            window: newAdWindow || adWindow
+          }
+        );
 
         if (newAdOrigin) setAdOrigin(newAdOrigin);
         if (newAdWindow) setAdWindow(newAdWindow);
@@ -61,19 +80,26 @@ const App: React.FC = () => {
       }
     });
 
-    console.log("status", status);
-    setupPostMessage();
+    console.log(`[${placementId}]`, "Child change status", status);
+    setupPostMessage({ mediaId, placementId });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClick = () => {
     const message = {
-      ptag: {
-        type: "clicked"
+      ebis: {
+        type: "clicked",
+        mediaId,
+        placementId
       }
     };
 
     if (adWindow && adOrigin) {
-      console.log("Child send message", message.ptag.type, message);
+      console.log(
+        `[${placementId}]`,
+        "Child send message",
+        "[clicked]",
+        message
+      );
       adWindow.postMessage(message, adOrigin);
     }
   };

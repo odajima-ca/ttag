@@ -23,5 +23,7 @@ declare namespace NodeJS {
 
     readonly REACT_APP_RUNTIME_PTAG_FILE: string;
     readonly REACT_APP_PTAG_FILE: string;
+
+    readonly REACT_APP_MEDIA_ID: string;
   }
 }

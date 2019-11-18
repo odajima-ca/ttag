@@ -1,106 +1,199 @@
-class AdInfo {
-  public origin: string | null;
-  public status: string | null;
-  public window: WindowProxy | null;
+interface Attrs {
+  mediaId: string;
+  origin: string;
+  placementId: string;
+  window: WindowProxy;
+}
 
-  constructor() {
-    this.origin = null;
+class AdInfo {
+  public mediaId: string;
+  public origin: string;
+  public placementId: string;
+  public status: string;
+  public window: WindowProxy;
+
+  constructor(attrs: Attrs) {
+    const { origin, window, mediaId, placementId } = attrs;
+
+    this.mediaId = mediaId;
+    this.origin = origin;
+    this.placementId = placementId;
     this.status = "initialized";
-    this.window = null;
+    this.window = window;
   }
 }
 
-const initializeApp = () => {
-  const adInfo = new AdInfo();
+interface Args {
+  mediaId: string;
+}
+
+const createAdInfo = (event: MessageEvent) => {
+  const ebisData = event.data && event.data.ebis;
+
+  console.log(
+    `[${ebisData.placementId}]`,
+    "Parent receive message",
+    "[handshake]",
+    event.data
+  );
+
+  const adInfo = new AdInfo({
+    origin: event.origin,
+    window: event.source as WindowProxy,
+    mediaId: ebisData.mediaId,
+    placementId: ebisData.placementId
+  });
+
+  adInfo.window.postMessage(
+    {
+      ebis: {
+        type: "connected",
+        mediaId: adInfo.mediaId,
+        placementId: adInfo.placementId
+      }
+    },
+    adInfo.origin
+  );
+
+  console.log(
+    `[${ebisData.placementId}]`,
+    "Parent send message",
+    "[handshake]",
+    event.data
+  );
+
+  return adInfo;
+};
+
+const handleClick = (event: MessageEvent, adInfos: AdInfo[]) => {
+  const ebisData = event.data && event.data.ebis;
+  const adInfo = adInfos.find(
+    adInfo => adInfo.placementId === ebisData.placementId
+  );
+
+  if (adInfo) {
+    console.log(
+      `[${ebisData.placementId}]`,
+      "Parent receive message",
+      "[clicked]",
+      event.data
+    );
+
+    adInfo.status = "confirm";
+
+    adInfo.window.postMessage(
+      {
+        ebis: {
+          type: "confirmed",
+          mediaId: adInfo.mediaId,
+          placementId: adInfo.placementId
+        }
+      },
+      adInfo.origin
+    );
+
+    console.log(
+      `[${ebisData.placementId}]`,
+      "Parent send message",
+      "[clicked]",
+      {
+        ebis: {
+          type: "confirmed",
+          mediaId: adInfo.mediaId,
+          placementId: adInfo.placementId
+        }
+      }
+    );
+
+    return true;
+  }
+
+  return false;
+};
+
+const openConfirm = (event: MessageEvent, adInfos: AdInfo[]) => {
+  const ebisData = event.data && event.data.ebis;
+  const adInfo = adInfos.find(
+    adInfo => adInfo.placementId === ebisData.placementId
+  );
+
+  if (adInfo) {
+    if (window.confirm("確認ダイアログ")) {
+      adInfo.status = "confirmedTheYes";
+
+      adInfo.window.postMessage(
+        {
+          ebis: {
+            type: "confirmedTheYes",
+            mediaId: adInfo.mediaId,
+            placementId: adInfo.placementId
+          }
+        },
+        adInfo.origin
+      );
+
+      console.log(
+        `[${ebisData.placementId}]`,
+        "Parent send message",
+        "[confirmed]",
+        {
+          ebis: {
+            type: "confirmedTheYes",
+            mediaId: adInfo.mediaId,
+            placementId: adInfo.placementId
+          }
+        }
+      );
+    } else {
+      adInfo.status = "confirmedTheNo";
+
+      adInfo.window.postMessage(
+        {
+          ebis: {
+            type: "confirmedTheNo",
+            mediaId: adInfo.mediaId,
+            placementId: adInfo.placementId
+          }
+        },
+        adInfo.origin
+      );
+
+      console.log(
+        `[${ebisData.placementId}]`,
+        "Parent send message",
+        "[confirmed]",
+        {
+          ebis: {
+            type: "confirmedTheNo",
+            mediaId: adInfo.mediaId,
+            placementId: adInfo.placementId
+          }
+        }
+      );
+    }
+  }
+
+  return;
+};
+
+const initializeApp = (args: Args) => {
+  const { mediaId } = args;
+  const adInfos: AdInfo[] = [];
 
   window.addEventListener("message", (event: MessageEvent) => {
-    const ptag = event.data && event.data.ptag;
+    const ebisData = event.data && event.data.ebis;
 
-    let message;
-
-    let newOrigin;
-    let newStatus;
-    let newWindow;
-    let sendStatus;
-
-    let shouldConfirm = false;
-
-    if (ptag) {
-      switch (ptag.type) {
+    if (ebisData && ebisData.mediaId === mediaId) {
+      switch (ebisData.type) {
         case "handshake":
-          newOrigin = event.origin;
-          newStatus = "handshake";
-          newWindow = event.source as WindowProxy;
-          sendStatus = "connected";
-
-          message = {
-            atag: {
-              type: sendStatus
-            }
-          };
-
+          adInfos.push(createAdInfo(event));
           break;
 
         case "clicked":
-          newStatus = "clicked";
-          sendStatus = "confirm";
-
-          shouldConfirm = true;
-
-          message = {
-            atag: {
-              type: sendStatus
-            }
-          };
-
-          break;
-      }
-
-      console.log("Parent receive message", adInfo.status, "to", newStatus, {
-        origin: newOrigin || adInfo.origin,
-        status: newStatus,
-        window: newWindow || adInfo.window
-      });
-
-      if (newOrigin) adInfo.origin = newOrigin;
-      if (newStatus) adInfo.status = newStatus;
-      if (newWindow) adInfo.window = newWindow;
-
-      if (adInfo.window && adInfo.origin && message) {
-        console.log("Parent send message", sendStatus, message);
-        adInfo.window.postMessage(message, adInfo.origin);
-
-        if (shouldConfirm) {
-          if (window.confirm("確認ダイアログ")) {
-            newStatus = "confirmed";
-            sendStatus = "confirmedTheYes";
-
-            message = {
-              atag: {
-                type: sendStatus
-              }
-            };
-
-            if (newStatus) adInfo.status = newStatus;
-
-            console.log("Parent send message", sendStatus, message);
-            adInfo.window.postMessage(message, adInfo.origin);
-          } else {
-            newStatus = "confirmed";
-            sendStatus = "confirmedTheNo";
-
-            message = {
-              atag: {
-                type: sendStatus
-              }
-            };
-
-            if (newStatus) adInfo.status = newStatus;
-
-            console.log("Parent send message", sendStatus, message);
-            adInfo.window.postMessage(message, adInfo.origin);
+          if (handleClick(event, adInfos)) {
+            openConfirm(event, adInfos);
           }
-        }
+          break;
       }
     }
   });

@@ -16,13 +16,29 @@ const theme = {
   }
 };
 
+const mountId =
+  (document &&
+    document.currentScript &&
+    document.currentScript.getAttribute("data-mountId")) ||
+  "ad-root";
+const mediaId =
+  (document &&
+    document.currentScript &&
+    document.currentScript.getAttribute("data-mediaId")) ||
+  "";
+const placementId =
+  (document &&
+    document.currentScript &&
+    document.currentScript.getAttribute("data-placementId")) ||
+  "";
+
 const target =
-  document.getElementById("ad-root") || document.head || document.body;
+  document.getElementById(mountId) || document.head || document.body;
 
 ReactDOM.render(
   <StyleSheetManager target={target}>
     <ThemeProvider theme={theme}>
-      <App />
+      <App placementId={placementId} mediaId={mediaId} />
     </ThemeProvider>
   </StyleSheetManager>,
   target
