@@ -3,6 +3,7 @@ import { Box, Button, Flex } from "rebass";
 
 import AdFrame1 from "./AdFrame1";
 import AdFrame2 from "./AdFrame2";
+import ConfirmModal from "./ConfirmModal";
 
 const App: React.FC = () => {
   return (
@@ -29,7 +30,9 @@ const App: React.FC = () => {
         mx="auto"
         my={3}
       >
-        <Box p={5} bg="lightgray" mb={3} />
+        <Box p={5} bg="lightgray" mb={3}>
+          <ConfirmModal />
+        </Box>
 
         <Flex flexWrap="wrap">
           <Box width={[1, 1 / 2]} px={2} py={2}>
