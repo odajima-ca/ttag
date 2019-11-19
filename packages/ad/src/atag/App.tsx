@@ -1,5 +1,9 @@
+import { sample } from "lodash";
+import { get } from "lodash";
 import React from "react";
 import { Box, Button, Flex } from "rebass/styled-components";
+
+import ads from "./ads";
 
 const setupPostMessage = (props: Props) => {
   const { mediaId, placementId } = props;
@@ -24,6 +28,7 @@ const App: React.FC<Props> = ({ placementId, mediaId }) => {
   const [status, setStatus] = React.useState("initialized");
   const [adWindow, setAdWindow] = React.useState();
   const [adOrigin, setAdOrigin] = React.useState();
+  const [ad] = React.useState(sample(ads));
 
   React.useEffect(() => {
     window.addEventListener("message", (event: MessageEvent) => {
@@ -89,7 +94,10 @@ const App: React.FC<Props> = ({ placementId, mediaId }) => {
       ebis: {
         type: "clicked",
         mediaId,
-        placementId
+        placementId,
+        data: {
+          pointBackInfo: get(ad, "pointBackInfo")
+        }
       }
     };
 
@@ -115,7 +123,7 @@ const App: React.FC<Props> = ({ placementId, mediaId }) => {
           flexWrap="nowrap"
           justifyContent="center"
         >
-          <h3>コンテンツ1</h3>
+          <h3>{get(ad, "pointBackInfo.name")}</h3>
           <p>status: {status}</p>
         </Flex>
         <Box pt={1} height="64px">
@@ -125,7 +133,10 @@ const App: React.FC<Props> = ({ placementId, mediaId }) => {
             height="100%"
             onClick={handleClick}
           >
-            ボタン1
+            <Flex justifyContent="space-between" px={3}>
+              <Box>{get(ad, "pointBackInfo.pointRate")}%</Box>
+              <Box>&yen;{get(ad, "price")}</Box>
+            </Flex>
           </Button>
         </Box>
       </Flex>

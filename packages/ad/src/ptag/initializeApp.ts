@@ -1,3 +1,4 @@
+
 interface Attrs {
   mediaId: string;
   origin: string;
@@ -118,65 +119,13 @@ const openConfirm = (event: MessageEvent, adInfos: AdInfo[]) => {
   );
 
   if (adInfo) {
-    const adEvent = new CustomEvent("adConfirm", { detail: { type: "adConfirm" } });
+    const adEvent = new CustomEvent("adConfirm", {
+      detail: {
+        pointBackInfo: ebisData.data.pointBackInfo
+      }
+    });
     window.dispatchEvent(adEvent);
   }
-
-  // if (adInfo) {
-  //   if (window.confirm("確認ダイアログ")) {
-  //     adInfo.status = "confirmedTheYes";
-  //
-  //     adInfo.window.postMessage(
-  //       {
-  //         ebis: {
-  //           type: "confirmedTheYes",
-  //           mediaId: adInfo.mediaId,
-  //           placementId: adInfo.placementId
-  //         }
-  //       },
-  //       adInfo.origin
-  //     );
-  //
-  //     console.log(
-  //       `[${ebisData.placementId}]`,
-  //       "Parent send message",
-  //       "[confirmed]",
-  //       {
-  //         ebis: {
-  //           type: "confirmedTheYes",
-  //           mediaId: adInfo.mediaId,
-  //           placementId: adInfo.placementId
-  //         }
-  //       }
-  //     );
-  //   } else {
-  //     adInfo.status = "confirmedTheNo";
-  //
-  //     adInfo.window.postMessage(
-  //       {
-  //         ebis: {
-  //           type: "confirmedTheNo",
-  //           mediaId: adInfo.mediaId,
-  //           placementId: adInfo.placementId
-  //         }
-  //       },
-  //       adInfo.origin
-  //     );
-  //
-  //     console.log(
-  //       `[${ebisData.placementId}]`,
-  //       "Parent send message",
-  //       "[confirmed]",
-  //       {
-  //         ebis: {
-  //           type: "confirmedTheNo",
-  //           mediaId: adInfo.mediaId,
-  //           placementId: adInfo.placementId
-  //         }
-  //       }
-  //     );
-  //   }
-  // }
 
   return;
 };
