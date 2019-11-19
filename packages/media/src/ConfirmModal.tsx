@@ -59,12 +59,11 @@ const ConfirmModal: React.FC = () => {
       setIsOpen(true);
     }) as EventListener);
   }, []);
-  const openModal = () => {
-    setIsOpen(true);
-  };
+
   const closeModal = () => {
     setIsOpen(false);
   };
+
   return (
     <Modal
       isOpen={modalIsOpen}
