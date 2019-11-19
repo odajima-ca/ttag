@@ -42,21 +42,40 @@
     <!--
         3. 広告クリックからの連携処理
             - `head`内に設置
+
     -->
     <script>
         const eventName = "adConfirm"; // イベント名は仮
         window.addEventListener("adConfirm", function (event) {
-          // 引数のイベントはカスタムイベントになります
-          // ref: https://developer.mozilla.org/ja/docs/Web/API/CustomEvent/CustomEvent
-          const data = event.detail;
+            // 引数のイベントはカスタムイベントになります
+            // ref: https://developer.mozilla.org/ja/docs/Web/API/CustomEvent/CustomEvent
+            const data = event.detail;
 
-          // データのダイアログへの設置
-          const text = JSON.stringify(data, null, 4);
-          $("#myModal .modal-body pre").text(text);
-          $("#myModal .btn.login").attr("href", data.redirectLoginUrl);
-          $("#myModal .btn.link").attr("href", data.redirectUrl);
-          $("#myModal").modal("show");
-        })
+            // 確認ダイアログのコントール（パブリッシャー固有の対応）
+            // 以下の対応はパブリッシャー側での開発が必須になります
+            // data ex: {
+            //   "ad": {
+            //     "name": "商品1",
+            //       "price": 11111,
+            //       "url": "https://www.ca-wise.co.jp/",
+            //       "pointBackInfo": {
+            //       "endDate": "2019-11-30T23:59:00.000+09:00",
+            //         "logoUrl": "https://via.placeholder.com/240x150/2e3456/ffffff?text=LOGO%201",
+            //         "name": "商品1",
+            //         "pointRate": "5.0",
+            //         "pointUp": true,
+            //         "startDate": "2019-10-28T00:00:00.000+09:00"
+            //     }
+            //   },
+            //   "redirectUrl": "https://クリック.ホテル.jp?lk=https://www.ca-wise.co.jp/",
+            //     "redirectLoginUrl": "https://アクセス.ログイン.jp?returnUri=xxxx&redirect_uri=https://www.ca-wise.co.jp/"
+            // }
+            const text = JSON.stringify(data, null, 4);
+            $("#myModal .modal-body pre").text(text);
+            $("#myModal .btn.login").attr("href", data.redirectLoginUrl);
+            $("#myModal .btn.link").attr("href", data.redirectUrl);
+            $("#myModal").modal("show");
+        });
     </script>
 </head>
 <body style="padding-top: 56px;">
@@ -199,6 +218,9 @@
         </div>
     </footer>
 
+    <!--
+        5. 広告専用確認ダイアログの設置
+    -->
     <div id="myModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
