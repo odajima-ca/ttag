@@ -24,7 +24,9 @@ const AdFrame2: React.FC = () => {
             // GAのユーザーID
             var TRAVENUE_GA_ID = "gaID-1234567890";
             // リダイレクト先URL
-            var TRAVENUE_REDIRECT_URL = "https://dev.ad.mobadme.jp/cl/click.php?c_id=43323&c_url=";
+            var TRAVENUE_REDIRECT_URL = "https://クリック.ホテル.jp?lk=";
+            // リダイレクト先ログインURL
+            var TRAVENUE_REDIRECT_LOGIN_URL = "https://アクセス.ログイン.jp?returnUri=xxxx&redirect_uri=";
             // SEMキーワードID
             var TRAVENUE_SEM_KEYWORD_ID = "semID-1234567890";
             // サイト内検索情報

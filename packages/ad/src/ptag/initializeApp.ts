@@ -1,4 +1,3 @@
-
 interface Attrs {
   mediaId: string;
   origin: string;
@@ -120,9 +119,7 @@ const openConfirm = (event: MessageEvent, adInfos: AdInfo[]) => {
 
   if (adInfo) {
     const adEvent = new CustomEvent("adConfirm", {
-      detail: {
-        pointBackInfo: ebisData.data.pointBackInfo
-      }
+      detail: ebisData.data
     });
     window.dispatchEvent(adEvent);
   }

@@ -1,5 +1,4 @@
-import { sample } from "lodash";
-import { get } from "lodash";
+import { get, sample } from "lodash";
 import React from "react";
 import { Box, Button, Flex } from "rebass/styled-components";
 
@@ -96,7 +95,12 @@ const App: React.FC<Props> = ({ placementId, mediaId }) => {
         mediaId,
         placementId,
         data: {
-          pointBackInfo: get(ad, "pointBackInfo")
+          ad,
+          redirectUrl: `${get(window, "TRAVENUE_REDIRECT_URL")}${ad && ad.url}`,
+          redirectLoginUrl: `${get(
+            window,
+            "TRAVENUE_REDIRECT_LOGIN_URL"
+          )}${ad && ad.url}`
         }
       }
     };
