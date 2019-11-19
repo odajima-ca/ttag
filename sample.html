@@ -38,6 +38,26 @@
       // コンテンツカテゴリ
       var TRAVENUE_CONTENTS_CATEGORY = "ホテル";
     </script>
+
+    <!--
+        3. 広告クリックからの連携処理
+            - `head`内に設置
+    -->
+    <script>
+        const eventName = "adConfirm"; // イベント名は仮
+        window.addEventListener("adConfirm", function (event) {
+          // 引数のイベントはカスタムイベントになります
+          // ref: https://developer.mozilla.org/ja/docs/Web/API/CustomEvent/CustomEvent
+          const data = event.detail;
+
+          // データのダイアログへの設置
+          const text = JSON.stringify(data, null, 4);
+          $("#myModal .modal-body pre").text(text);
+          $("#myModal .btn.login").attr("href", data.redirectLoginUrl);
+          $("#myModal .btn.link").attr("href", data.redirectUrl);
+          $("#myModal").modal("show");
+        })
+    </script>
 </head>
 <body style="padding-top: 56px;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -98,7 +118,7 @@
                     </div>
 
                     <!--
-                        3-1. 広告の設定（広告１）
+                        4-1. 広告の設定（広告１）
                             - 挿入するDOMのあとにスクリプトを定義
                             - データ属性に広告固有のパラメーターを設定
                                 - mountId: 広告挿入先のHTML ID（デフォルト "ad-root"）
@@ -125,18 +145,6 @@
                         </div>
                     </div>
 
-                    <!--
-                        3-2. 広告の設定（広告２）
-                            - 挿入するDOMのあとにスクリプトを定義
-                            - データ属性に広告固有のパラメーターを設定
-                                - mountId: 広告挿入先のHTML ID（デフォルト "ad-root"）
-                                - mediaid: メディア固有のID（必須）
-                                - placementId: メディア固有のプレイスメントID（必須）
-                                ※ mountId, placementId はページ内でユニーク
-                    -->
-                    <div id="ad-root-placement-2222"></div>
-                    <script src="https://odajima-ca-ttag-ad.netlify.com/static/js/atag.b00ba94f.js" data-mountId="ad-root-placement-2222" data-mediaId="mediaId-1234567890" data-placementId="placement-2222"></script>
-
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100">
                             <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
@@ -154,7 +162,7 @@
                     </div>
 
                     <!--
-                        3-3. 広告の設定（広告３）
+                        4-2. 広告の設定（広告２）
                             - 挿入するDOMのあとにスクリプトを定義
                             - データ属性に広告固有のパラメーターを設定
                                 - mountId: 広告挿入先のHTML ID（デフォルト "ad-root"）
@@ -162,8 +170,8 @@
                                 - placementId: メディア固有のプレイスメントID（必須）
                                 ※ mountId, placementId はページ内でユニーク
                     -->
-                    <div id="ad-root-placement-3333"></div>
-                    <script src="https://odajima-ca-ttag-ad.netlify.com/static/js/atag.b00ba94f.js" data-mountId="ad-root-placement-3333" data-mediaId="mediaId-1234567890" data-placementId="placement-3333"></script>
+                    <div id="ad-root-placement-2222"></div>
+                    <script src="https://odajima-ca-ttag-ad.netlify.com/static/js/atag.b00ba94f.js" data-mountId="ad-root-placement-2222" data-mediaId="mediaId-1234567890" data-placementId="placement-2222"></script>
 
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100">
@@ -190,6 +198,26 @@
             <p class="m-0 text-center text-white">Copyright &copy; Sample 2019</p>
         </div>
     </footer>
+
+    <div id="myModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <pre></pre>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary login" target="_blank">LOGIN</a>
+                    <a class="btn btn-secondary link" data-dismiss="modal" target="_blank">LINK</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
