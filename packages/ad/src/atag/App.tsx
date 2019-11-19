@@ -117,7 +117,7 @@ const App: React.FC<Props> = ({ placementId, mediaId }) => {
   };
 
   return (
-    <Box width={400} height={360}>
+    <Box width={336} height={280}>
       <Flex flexDirection="column" flexWrap="nowrap" height="100%">
         <Flex
           alignItems="center"

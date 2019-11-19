@@ -45,7 +45,7 @@ const AdFrame2: React.FC = () => {
       frameBorder={0}
       initialContent={initialContent}
       scrolling="no"
-      style={{ width: 400, height: 360 }}
+      style={{ width: 336, height: 280 }}
     />
   );
 };
