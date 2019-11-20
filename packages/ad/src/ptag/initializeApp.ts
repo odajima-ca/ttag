@@ -7,7 +7,7 @@ interface Attrs {
 
 class AdInfo {
   public mediaId: string;
-  public origin: string | null;
+  public origin: string;
   public placementId: string;
   public status: string;
   public window: WindowProxy;
@@ -16,7 +16,7 @@ class AdInfo {
     const { origin, window, mediaId, placementId } = attrs;
 
     this.mediaId = mediaId;
-    this.origin = origin;
+    this.origin = origin || "*";
     this.placementId = placementId;
     this.status = "initialized";
     this.window = window;
@@ -52,7 +52,7 @@ const createAdInfo = (event: MessageEvent) => {
         placementId: adInfo.placementId
       }
     },
-    adInfo.origin || "*"
+    adInfo.origin
   );
 
   console.log(
