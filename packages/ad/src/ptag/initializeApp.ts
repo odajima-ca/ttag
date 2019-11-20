@@ -13,13 +13,13 @@ class AdInfo {
   public window: WindowProxy;
 
   constructor(attrs: Attrs) {
-    const { origin, window, mediaId, placementId } = attrs;
+    const { origin, mediaId, placementId } = attrs;
 
     this.mediaId = mediaId;
     this.origin = origin || "*";
     this.placementId = placementId;
     this.status = "initialized";
-    this.window = window;
+    this.window = attrs.window || window;
   }
 }
 
@@ -52,7 +52,7 @@ const createAdInfo = (event: MessageEvent) => {
         placementId: adInfo.placementId
       }
     },
-    adInfo.origin || "*"
+    adInfo.origin
   );
 
   console.log(
@@ -89,7 +89,7 @@ const handleClick = (event: MessageEvent, adInfos: AdInfo[]) => {
           placementId: adInfo.placementId
         }
       },
-      adInfo.origin || "*"
+      adInfo.origin
     );
 
     console.log(
