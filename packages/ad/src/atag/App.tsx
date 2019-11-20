@@ -44,7 +44,7 @@ const App: React.FC<Props> = ({ placementId, mediaId }) => {
       ) {
         switch (ebisData.type) {
           case "connected":
-            newAdOrigin = event.origin;
+            newAdOrigin = (!event.origin || event.origin === "null") ? "*" : event.origin;
             newAdWindow = event.source as WindowProxy;
             newStatus = "connected";
 
