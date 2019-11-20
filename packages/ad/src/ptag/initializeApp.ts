@@ -16,7 +16,7 @@ class AdInfo {
     const { origin, window, mediaId, placementId } = attrs;
 
     this.mediaId = mediaId;
-    this.origin = origin === "null" ? "*" : origin;
+    this.origin = (!origin || origin === "null") ? "*" : origin;
     this.placementId = placementId;
     this.status = "initialized";
     this.window = window;
