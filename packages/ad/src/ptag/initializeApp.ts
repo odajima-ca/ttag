@@ -13,13 +13,13 @@ class AdInfo {
   public window: WindowProxy;
 
   constructor(attrs: Attrs) {
-    const { origin, mediaId, placementId } = attrs;
+    const { origin, window, mediaId, placementId } = attrs;
 
     this.mediaId = mediaId;
-    this.origin = origin || "*";
+    this.origin = origin === "null" ? "*" : origin;
     this.placementId = placementId;
     this.status = "initialized";
-    this.window = attrs.window || window;
+    this.window = window;
   }
 }
 
