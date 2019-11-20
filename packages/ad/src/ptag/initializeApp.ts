@@ -52,7 +52,7 @@ const createAdInfo = (event: MessageEvent) => {
         placementId: adInfo.placementId
       }
     },
-    adInfo.origin
+    adInfo.origin || "*"
   );
 
   console.log(
@@ -89,7 +89,7 @@ const handleClick = (event: MessageEvent, adInfos: AdInfo[]) => {
           placementId: adInfo.placementId
         }
       },
-      adInfo.origin
+      adInfo.origin || "*"
     );
 
     console.log(
