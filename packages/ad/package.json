@@ -30,7 +30,7 @@
     "@types/react-slick": "^0",
     "@types/rebass": "^4",
     "@types/styled-components": "^4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "react": "^16.11.0",
     "react-app-rewire-multiple-entry": "^2.0.0",
     "react-dom": "^16.11.0",
