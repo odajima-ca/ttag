@@ -31,7 +31,7 @@
     "@types/react-modal": "^3.10.0",
     "@types/rebass": "^4",
     "@types/styled-components": "^4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-frame-component": "^4",
